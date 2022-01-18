@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/categories")
 public class CategoryController {
@@ -19,8 +21,9 @@ public class CategoryController {
     @GetMapping("{id}")
     public ResponseEntity<?> find(@PathVariable Integer id) {
 
-        Category category = service.search(id);
+        Optional<Category> category = service.search(id);
 
         return ResponseEntity.ok().body(category);
+
     }
 }

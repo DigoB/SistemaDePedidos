@@ -1,9 +1,11 @@
 package br.com.rodrigobraz.OrderSystem.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Category {
@@ -13,6 +15,10 @@ public class Category {
     private Integer id;
 
     private String name;
+
+    @JsonManagedReference
+    @ManyToMany(mappedBy = "categories")
+    private List<Product> products = new ArrayList<>();
 
     public Category() {
     }
@@ -28,6 +34,24 @@ public class Category {
 
     public String getName() {
         return name;
+    }
+
+    @ManyToMany(mappedBy = "categories")
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Category)) return false;
+        Category category = (Category) o;
+        return Objects.equals(getId(), category.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
     }
 
     @Override
