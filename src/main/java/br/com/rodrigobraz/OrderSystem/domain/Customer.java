@@ -1,6 +1,7 @@
 package br.com.rodrigobraz.OrderSystem.domain;
 
 import br.com.rodrigobraz.OrderSystem.domain.enums.CustomerType;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.*;
@@ -20,6 +21,7 @@ public class Customer {
 
     private Integer type;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "customer")
     private List<Endereco> adresses = new ArrayList<>();
 

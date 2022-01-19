@@ -1,5 +1,7 @@
 package br.com.rodrigobraz.OrderSystem.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -12,10 +14,9 @@ public class City {
 
     private String name;
 
+    @JsonManagedReference
     @ManyToOne
-    @JoinColumn(
-            name = "state_id"
-    )
+    @JoinColumn(name = "state_id")
     private State state;
 
     public City() {

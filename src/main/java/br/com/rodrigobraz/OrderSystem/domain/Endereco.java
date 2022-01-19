@@ -1,5 +1,7 @@
 package br.com.rodrigobraz.OrderSystem.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -20,6 +22,7 @@ public class Endereco {
 
     private String zipCode;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
