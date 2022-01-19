@@ -21,9 +21,9 @@ public class Product {
     @JsonBackReference
     @ManyToMany
     @JoinTable(
-            name = "PRODUTO_CATEGORIA",
-                    joinColumns = @JoinColumn(name = "produto_id"),
-                    inverseJoinColumns = @JoinColumn(name = "categoria_id")
+            name = "PRODUCT_CATEGORY",
+                    joinColumns = @JoinColumn(name = "product_id"),
+                    inverseJoinColumns = @JoinColumn(name = "category_id")
     )
     private List<Category> categories = new ArrayList<>();
 
