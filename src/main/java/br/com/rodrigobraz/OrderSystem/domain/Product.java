@@ -3,9 +3,7 @@ package br.com.rodrigobraz.OrderSystem.domain;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 public class Product {
@@ -22,10 +20,13 @@ public class Product {
     @ManyToMany
     @JoinTable(
             name = "PRODUCT_CATEGORY",
-                    joinColumns = @JoinColumn(name = "product_id"),
-                    inverseJoinColumns = @JoinColumn(name = "category_id")
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
     )
     private List<Category> categories = new ArrayList<>();
+
+    @OneToMany(mappedBy = "id.product")
+    private Set<OrderItem> items = new HashSet<>();
 
     public Product() {
     }
@@ -52,6 +53,19 @@ public class Product {
         return categories;
     }
 
+    public Set<OrderItem> getItems() {
+        return items;
+    }
+
+    public List<OrderBuy> getOrders() {
+        List<OrderBuy> list = new ArrayList<>();
+        for (OrderItem x : items) {
+            list.add(x.getOrder());
+        }
+        return list;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -73,4 +87,5 @@ public class Product {
                 ", price=" + price +
                 '}';
     }
+
 }

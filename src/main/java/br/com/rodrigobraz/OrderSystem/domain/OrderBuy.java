@@ -2,7 +2,9 @@ package br.com.rodrigobraz.OrderSystem.domain;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class OrderBuy {
@@ -23,6 +25,9 @@ public class OrderBuy {
     @ManyToOne
     @JoinColumn(name = "delivery_address_id")
     private Endereco deliveryAddress;
+
+    @OneToMany(mappedBy = "id.order")
+    private Set<OrderItem> items = new HashSet<>();
 
     public OrderBuy() {
     }
@@ -58,6 +63,10 @@ public class OrderBuy {
         this.payment = payment;
     }
 
+    public Set<OrderItem> getItems() {
+        return items;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -70,4 +79,5 @@ public class OrderBuy {
     public int hashCode() {
         return Objects.hash(getId());
     }
+
 }

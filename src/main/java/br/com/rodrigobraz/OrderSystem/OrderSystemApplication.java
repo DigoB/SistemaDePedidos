@@ -2,7 +2,6 @@ package br.com.rodrigobraz.OrderSystem;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
-
 import br.com.rodrigobraz.OrderSystem.domain.*;
 import br.com.rodrigobraz.OrderSystem.domain.enums.CustomerType;
 import br.com.rodrigobraz.OrderSystem.domain.enums.PaymentStatus;
@@ -38,6 +37,9 @@ public class OrderSystemApplication implements CommandLineRunner {
 
 	@Autowired
 	private PaymentRepository paymentRepository;
+
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(OrderSystemApplication.class, args);
@@ -92,20 +94,32 @@ public class OrderSystemApplication implements CommandLineRunner {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-		OrderBuy orderBuy1 = new OrderBuy(null, sdf.parse("30/01/2017 10:32"), cust1, end1);
-		OrderBuy orderBuy2 = new OrderBuy(null, sdf.parse("10/10/2017 19:35"), cust1, end2);
+		OrderBuy order1 = new OrderBuy(null, sdf.parse("30/01/2017 10:32"), cust1, end1);
+		OrderBuy order2 = new OrderBuy(null, sdf.parse("10/10/2017 19:35"), cust1, end2);
 
-		Payment pay1 = new CardPayment(null, PaymentStatus.PAYD, orderBuy1, 6);
-		orderBuy1.setPayment(pay1);
+		Payment pay1 = new CardPayment(null, PaymentStatus.PAYD, order1, 6);
+		order1.setPayment(pay1);
 
-		Payment pay2 = new TicketPayment(null, PaymentStatus.PENDING, orderBuy2, sdf.parse("20/10/2017 00:00"),
+		Payment pay2 = new TicketPayment(null, PaymentStatus.PENDING, order2, sdf.parse("20/10/2017 00:00"),
 				null);
-		orderBuy2.setPayment(pay2);
+		order2.setPayment(pay2);
 
-		cust1.getOrders().addAll(Arrays.asList(orderBuy1, orderBuy2));
+		cust1.getOrders().addAll(Arrays.asList(order1, order2));
 
-		orderRepository.saveAll(Arrays.asList(orderBuy1, orderBuy2));
+		orderRepository.saveAll(Arrays.asList(order1, order2));
 		paymentRepository.saveAll(Arrays.asList(pay1, pay2));
-	}
 
+		OrderItem item1 = new OrderItem(order1, prod1,0.00, 1, 2000.00);
+		OrderItem item2 = new OrderItem(order1, prod3, 0.00, 2, 80.00);
+		OrderItem item3 = new OrderItem(order2, prod2, 100.00, 1, 800.00);
+
+		order1.getItems().addAll(Arrays.asList(item1, item2));
+		order2.getItems().addAll(Arrays.asList(item3));
+
+		prod1.getItems().addAll(Arrays.asList(item1));
+		prod2.getItems().addAll(Arrays.asList(item3));
+		prod3.getItems().addAll(Arrays.asList(item2));
+
+		orderItemRepository.saveAll(Arrays.asList(item1, item2, item3));
+	}
 }
