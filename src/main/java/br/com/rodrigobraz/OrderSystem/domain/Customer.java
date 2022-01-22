@@ -29,6 +29,9 @@ public class Customer {
     @CollectionTable(name = "PHONE_NUMBER")
     private Set<String> phoneNumbers = new HashSet<>();
 
+    @OneToMany(mappedBy = "customer")
+    private List<OrderBuy> orderBuys = new ArrayList<>();
+
     public Customer() {
     }
 
@@ -68,6 +71,10 @@ public class Customer {
         return phoneNumbers;
     }
 
+    public List<OrderBuy> getOrders() {
+        return orderBuys;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -80,4 +87,5 @@ public class Customer {
     public int hashCode() {
         return Objects.hash(getId());
     }
+
 }

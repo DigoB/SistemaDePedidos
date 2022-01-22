@@ -1,9 +1,11 @@
 package br.com.rodrigobraz.OrderSystem;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import br.com.rodrigobraz.OrderSystem.domain.*;
 import br.com.rodrigobraz.OrderSystem.domain.enums.CustomerType;
+import br.com.rodrigobraz.OrderSystem.domain.enums.PaymentStatus;
 import br.com.rodrigobraz.OrderSystem.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -30,6 +32,12 @@ public class OrderSystemApplication implements CommandLineRunner {
 
 	@Autowired
 	private CustomerRepository customerRepository;
+
+	@Autowired
+	private OrderRepository orderRepository;
+
+	@Autowired
+	private PaymentRepository paymentRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(OrderSystemApplication.class, args);
@@ -81,6 +89,23 @@ public class OrderSystemApplication implements CommandLineRunner {
 
 		customerRepository.saveAll(Arrays.asList(cust1));
 		adressRepository.saveAll(Arrays.asList(end1, end2));
+
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+		OrderBuy orderBuy1 = new OrderBuy(null, sdf.parse("30/01/2017 10:32"), cust1, end1);
+		OrderBuy orderBuy2 = new OrderBuy(null, sdf.parse("10/10/2017 19:35"), cust1, end2);
+
+		Payment pay1 = new CardPayment(null, PaymentStatus.PAYD, orderBuy1, 6);
+		orderBuy1.setPayment(pay1);
+
+		Payment pay2 = new TicketPayment(null, PaymentStatus.PENDING, orderBuy2, sdf.parse("20/10/2017 00:00"),
+				null);
+		orderBuy2.setPayment(pay2);
+
+		cust1.getOrders().addAll(Arrays.asList(orderBuy1, orderBuy2));
+
+		orderRepository.saveAll(Arrays.asList(orderBuy1, orderBuy2));
+		paymentRepository.saveAll(Arrays.asList(pay1, pay2));
 	}
 
 }
