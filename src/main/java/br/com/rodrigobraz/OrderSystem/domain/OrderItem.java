@@ -1,5 +1,7 @@
 package br.com.rodrigobraz.OrderSystem.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import java.util.Objects;
@@ -7,6 +9,7 @@ import java.util.Objects;
 @Entity
 public class OrderItem {
 
+    @JsonIgnore
     @EmbeddedId
     private OrderItemPK id = new OrderItemPK();
 
@@ -27,6 +30,7 @@ public class OrderItem {
         this.price = price;
     }
 
+    @JsonIgnore
     public OrderBuy getOrder() {
         return id.getOrder();
     }

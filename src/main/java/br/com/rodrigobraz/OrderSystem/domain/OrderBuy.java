@@ -1,5 +1,8 @@
 package br.com.rodrigobraz.OrderSystem.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
@@ -13,11 +16,14 @@ public class OrderBuy {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private Date instant;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "orderBuy")
+    @JsonManagedReference
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "order")
     private Payment payment;
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;

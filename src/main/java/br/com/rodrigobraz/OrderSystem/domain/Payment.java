@@ -1,6 +1,7 @@
 package br.com.rodrigobraz.OrderSystem.domain;
 
 import br.com.rodrigobraz.OrderSystem.domain.enums.PaymentStatus;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -14,18 +15,19 @@ public abstract class Payment {
 
     private Integer status;
 
+    @JsonBackReference
     @OneToOne
     @JoinColumn(name = "order_id")
     @MapsId
-    private OrderBuy orderBuy;
+    private OrderBuy order;
 
     public Payment() {
     }
 
-    public Payment(Integer id, PaymentStatus status, OrderBuy orderBuy) {
+    public Payment(Integer id, PaymentStatus status, OrderBuy order) {
         this.id = id;
         this.status = status.getCod();
-        this.orderBuy = orderBuy;
+        this.order = order;
     }
 
     public Integer getId() {
@@ -37,7 +39,7 @@ public abstract class Payment {
     }
 
     public OrderBuy getOrder() {
-        return orderBuy;
+        return order;
     }
 
     @Override

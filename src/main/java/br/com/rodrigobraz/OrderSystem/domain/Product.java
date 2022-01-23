@@ -1,6 +1,7 @@
 package br.com.rodrigobraz.OrderSystem.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.*;
@@ -25,6 +26,7 @@ public class Product {
     )
     private List<Category> categories = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "id.product")
     private Set<OrderItem> items = new HashSet<>();
 
@@ -57,6 +59,7 @@ public class Product {
         return items;
     }
 
+    @JsonIgnore
     public List<OrderBuy> getOrders() {
         List<OrderBuy> list = new ArrayList<>();
         for (OrderItem x : items) {
@@ -64,8 +67,7 @@ public class Product {
         }
         return list;
     }
-
-
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

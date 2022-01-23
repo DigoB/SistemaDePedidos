@@ -1,6 +1,7 @@
 package br.com.rodrigobraz.OrderSystem.domain;
 
 import br.com.rodrigobraz.OrderSystem.domain.enums.PaymentStatus;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.Entity;
 import java.util.Date;
@@ -8,8 +9,9 @@ import java.util.Date;
 @Entity
 public class TicketPayment extends Payment {
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dueDate;
-
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date paymentDate;
 
     public TicketPayment() {

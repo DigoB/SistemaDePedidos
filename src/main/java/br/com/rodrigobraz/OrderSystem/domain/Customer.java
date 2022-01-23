@@ -1,6 +1,7 @@
 package br.com.rodrigobraz.OrderSystem.domain;
 
 import br.com.rodrigobraz.OrderSystem.domain.enums.CustomerType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -29,8 +30,9 @@ public class Customer {
     @CollectionTable(name = "PHONE_NUMBER")
     private Set<String> phoneNumbers = new HashSet<>();
 
+    @JsonBackReference
     @OneToMany(mappedBy = "customer")
-    private List<OrderBuy> orderBuys = new ArrayList<>();
+    private List<OrderBuy> orders = new ArrayList<>();
 
     public Customer() {
     }
@@ -72,7 +74,7 @@ public class Customer {
     }
 
     public List<OrderBuy> getOrders() {
-        return orderBuys;
+        return orders;
     }
 
     @Override
