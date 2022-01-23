@@ -1,7 +1,6 @@
 package br.com.rodrigobraz.OrderSystem.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -19,18 +18,16 @@ public class OrderBuy {
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private Date instant;
 
-    @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "order")
     private Payment payment;
 
-    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
     @ManyToOne
     @JoinColumn(name = "delivery_address_id")
-    private Endereco deliveryAddress;
+    private CustomerAddress deliveryAddress;
 
     @OneToMany(mappedBy = "id.order")
     private Set<OrderItem> items = new HashSet<>();
@@ -38,7 +35,7 @@ public class OrderBuy {
     public OrderBuy() {
     }
 
-    public OrderBuy(Integer id, Date instant, Customer customer, Endereco deliveryAddress) {
+    public OrderBuy(Integer id, Date instant, Customer customer, CustomerAddress deliveryAddress) {
         this.id = id;
         this.instant = instant;
         this.customer = customer;
@@ -61,7 +58,7 @@ public class OrderBuy {
         return customer;
     }
 
-    public Endereco getDeliveryAddress() {
+    public CustomerAddress getDeliveryAddress() {
         return deliveryAddress;
     }
 

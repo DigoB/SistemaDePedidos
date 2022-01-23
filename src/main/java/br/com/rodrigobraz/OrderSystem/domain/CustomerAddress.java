@@ -1,12 +1,12 @@
 package br.com.rodrigobraz.OrderSystem.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-public class Endereco {
+public class CustomerAddress {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +22,7 @@ public class Endereco {
 
     private String zipCode;
 
-    @JsonBackReference
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
@@ -31,10 +31,10 @@ public class Endereco {
     @JoinColumn(name = "city_id")
     private City city;
 
-    public Endereco() {
+    public CustomerAddress() {
     }
 
-    public Endereco(Integer id, String street, String number, String complement, String district, String zipCode, Customer customer, City city) {
+    public CustomerAddress(Integer id, String street, String number, String complement, String district, String zipCode, Customer customer, City city) {
         this.id = id;
         this.street = street;
         this.number = number;
@@ -80,8 +80,8 @@ public class Endereco {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Endereco)) return false;
-        Endereco adress = (Endereco) o;
+        if (!(o instanceof CustomerAddress)) return false;
+        CustomerAddress adress = (CustomerAddress) o;
         return Objects.equals(getId(), adress.getId());
     }
 

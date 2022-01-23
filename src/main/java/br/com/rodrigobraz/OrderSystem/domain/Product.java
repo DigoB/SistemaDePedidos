@@ -1,6 +1,5 @@
 package br.com.rodrigobraz.OrderSystem.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -17,7 +16,7 @@ public class Product {
 
     private Double price;
 
-    @JsonBackReference
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "PRODUCT_CATEGORY",

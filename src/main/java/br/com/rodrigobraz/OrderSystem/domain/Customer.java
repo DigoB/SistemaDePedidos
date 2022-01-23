@@ -1,8 +1,7 @@
 package br.com.rodrigobraz.OrderSystem.domain;
 
 import br.com.rodrigobraz.OrderSystem.domain.enums.CustomerType;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.*;
@@ -22,15 +21,14 @@ public class Customer {
 
     private Integer type;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "customer")
-    private List<Endereco> adresses = new ArrayList<>();
+    private List<CustomerAddress> adresses = new ArrayList<>();
 
     @ElementCollection
     @CollectionTable(name = "PHONE_NUMBER")
     private Set<String> phoneNumbers = new HashSet<>();
 
-    @JsonBackReference
+    @JsonIgnore
     @OneToMany(mappedBy = "customer")
     private List<OrderBuy> orders = new ArrayList<>();
 
@@ -65,7 +63,7 @@ public class Customer {
         return CustomerType.toEnum(type);
     }
 
-    public List<Endereco> getAdresses() {
+    public List<CustomerAddress> getAdresses() {
         return adresses;
     }
 

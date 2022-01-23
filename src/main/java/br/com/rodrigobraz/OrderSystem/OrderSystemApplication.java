@@ -82,9 +82,9 @@ public class OrderSystemApplication implements CommandLineRunner {
 				"maria@gmail.com", "11111111111", CustomerType.LEGAL_PERSON);
 		cust1.getPhoneNumbers().addAll(Arrays.asList("11111111111", "22222222222"));
 
-		Endereco end1 = new Endereco(null, "Rua Flores", "300",
+		CustomerAddress end1 = new CustomerAddress(null, "Rua Flores", "300",
 				"Apto 303", "Jardim", "11111111", cust1, city1);
-		Endereco end2 = new Endereco(null, "Avenida Matos", "105", "Sala 800",
+		CustomerAddress end2 = new CustomerAddress(null, "Avenida Matos", "105", "Sala 800",
 				"Centro", "11111112", cust1, city2);
 
 		cust1.getAdresses().addAll(Arrays.asList(end1, end2));

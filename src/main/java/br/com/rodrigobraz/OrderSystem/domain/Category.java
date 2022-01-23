@@ -1,7 +1,5 @@
 package br.com.rodrigobraz.OrderSystem.domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +14,6 @@ public class Category {
 
     private String name;
 
-    @JsonManagedReference
     @ManyToMany(mappedBy = "categories")
     private List<Product> products = new ArrayList<>();
 

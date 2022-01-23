@@ -1,7 +1,7 @@
 package br.com.rodrigobraz.OrderSystem.domain;
 
 import br.com.rodrigobraz.OrderSystem.domain.enums.PaymentStatus;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -15,7 +15,7 @@ public abstract class Payment {
 
     private Integer status;
 
-    @JsonBackReference
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "order_id")
     @MapsId
