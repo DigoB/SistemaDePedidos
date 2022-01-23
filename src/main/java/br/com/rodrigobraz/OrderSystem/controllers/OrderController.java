@@ -1,8 +1,6 @@
 package br.com.rodrigobraz.OrderSystem.controllers;
 
-import br.com.rodrigobraz.OrderSystem.domain.Category;
 import br.com.rodrigobraz.OrderSystem.domain.OrderBuy;
-import br.com.rodrigobraz.OrderSystem.services.CategoryService;
 import br.com.rodrigobraz.OrderSystem.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +19,7 @@ public class OrderController {
     private OrderService service;
 
     @GetMapping("{id}")
-    public ResponseEntity<?> find(@PathVariable Integer id) {
+    public ResponseEntity<Optional<OrderBuy>> find(@PathVariable Integer id) {
 
         Optional<OrderBuy> order = service.search(id);
 

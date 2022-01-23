@@ -19,7 +19,7 @@ public class CustomerController {
     private CustomerService service;
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> searchById(@PathVariable Integer id) {
+    public ResponseEntity<Optional<Customer>> searchById(@PathVariable Integer id) {
 
         Optional<Customer> possibleCustomer = service.search(id);
 
