@@ -23,4 +23,7 @@ public class CategoryService {
         return category;
     }
 
+    public Category insert(Category category) {
+        return repository.save(category);
+    }
 }
