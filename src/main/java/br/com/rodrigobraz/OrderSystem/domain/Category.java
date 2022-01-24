@@ -1,5 +1,7 @@
 package br.com.rodrigobraz.OrderSystem.domain;
 
+import org.springframework.data.domain.Page;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;

@@ -6,6 +6,8 @@ import br.com.rodrigobraz.OrderSystem.services.exceptions.DataIntegrityException
 import br.com.rodrigobraz.OrderSystem.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -40,5 +42,13 @@ public class CategoryService {
         } catch (DataIntegrityViolationException e) {
             throw new DataIntegrityException("Not possible delete a category that has products");
         }
+    }
+
+    public Page<Category> searchList(Pageable pagination) {
+        return repository.findAll(pagination);
+    }
+
+    public Page<Category> findByName(String name, Pageable pagination) {
+        return repository.findByName(name, pagination);
     }
 }
