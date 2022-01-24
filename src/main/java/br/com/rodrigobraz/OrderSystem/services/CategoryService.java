@@ -1,6 +1,7 @@
 package br.com.rodrigobraz.OrderSystem.services;
 
 import br.com.rodrigobraz.OrderSystem.domain.Category;
+import br.com.rodrigobraz.OrderSystem.domain.dto.CategoryDTO;
 import br.com.rodrigobraz.OrderSystem.repositories.CategoryRepository;
 import br.com.rodrigobraz.OrderSystem.services.exceptions.DataIntegrityException;
 import br.com.rodrigobraz.OrderSystem.services.exceptions.ObjectNotFoundException;
@@ -32,6 +33,7 @@ public class CategoryService {
     }
 
     public Category update(Category category) {
+        search(category.getId());
         return repository.save(category);
     }
 

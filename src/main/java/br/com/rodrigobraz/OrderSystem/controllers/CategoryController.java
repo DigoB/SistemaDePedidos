@@ -11,6 +11,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.Optional;
 
@@ -31,7 +32,7 @@ public class CategoryController {
 
     @GetMapping
     public Page<CategoryDTO> list(@RequestParam(required = false) String name,
-                               @PageableDefault(sort = "id", direction = Sort.Direction.DESC, page = 0, size = 10)
+                               @PageableDefault(sort = "id", direction = Sort.Direction.ASC, page = 0, size = 10)
                                Pageable pagination) {
 
         if (name == null) {
@@ -44,8 +45,9 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<Category> insert(@RequestBody Category category, UriComponentsBuilder uri) {
+    public ResponseEntity<Void> insert(@RequestBody @Valid CategoryDTO dto, UriComponentsBuilder uri) {
 
+        Category category = dto.toModel();
         category = service.insert(category);
 
         URI path = uri.path("/categories/{id}").buildAndExpand(category.getId()).toUri();
@@ -54,8 +56,9 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@RequestBody Category category, @PathVariable Integer id) {
+    public ResponseEntity<?> update(@RequestBody @Valid CategoryDTO dto, @PathVariable Integer id) {
 
+        Category category = dto.toModel();
         service.update(category);
 
         return ResponseEntity.noContent().build();

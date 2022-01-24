@@ -50,6 +50,16 @@ public class OrderSystemApplication implements CommandLineRunner {
 		
 		Category cat1 = new Category(null, "Informatica");
 		Category cat2 = new Category(null, "Escritorio");
+		Category cat3 = new Category(null, "Cama mesa e banho");
+		Category cat4 = new Category(null, "Jardinagem");
+		Category cat5 = new Category(null, "Papelaria");
+		Category cat6 = new Category(null, "Games");
+		Category cat7 = new Category(null, "Eletro");
+		Category cat8 = new Category(null, "Moveis");
+		Category cat9 = new Category(null, "Louça");
+		Category cat10 = new Category(null, "Roupas");
+		Category cat11 = new Category(null, "Decoração");
+		Category cat12 = new Category(null, "Perfumaria");
 
 		Product prod1 = new Product(null, "Computer", 2000.00);
 		Product prod2 = new Product(null, "Printer", 800.00);
@@ -62,7 +72,7 @@ public class OrderSystemApplication implements CommandLineRunner {
 		prod2.getCategories().addAll(Arrays.asList(cat1, cat2));
 		prod3.getCategories().addAll(Arrays.asList(cat1));
 
-		categoryRepository.saveAll(Arrays.asList(cat1, cat2));
+		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8, cat9, cat10, cat11, cat12));
 		productRepository.saveAll(Arrays.asList(prod1, prod2, prod3));
 
 		State state1 = new State(null, "Minas Gerais");
