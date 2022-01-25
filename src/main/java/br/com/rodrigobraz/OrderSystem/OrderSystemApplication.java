@@ -88,7 +88,7 @@ public class OrderSystemApplication implements CommandLineRunner {
 		stateRepository.saveAll(Arrays.asList(state1, state2));
 		cityRepository.saveAll(Arrays.asList(city1, city2, city3));
 
-		Customer cust1 = new Customer(null, "Maria Silva",
+		Customer cust1 = new Customer("Maria Silva",
 				"maria@gmail.com", "11111111111", CustomerType.LEGAL_PERSON);
 		cust1.getPhoneNumbers().addAll(Arrays.asList("11111111111", "22222222222"));
 

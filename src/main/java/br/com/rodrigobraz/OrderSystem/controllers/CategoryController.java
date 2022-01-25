@@ -1,8 +1,12 @@
 package br.com.rodrigobraz.OrderSystem.controllers;
 
 import br.com.rodrigobraz.OrderSystem.domain.Category;
+import br.com.rodrigobraz.OrderSystem.domain.Customer;
 import br.com.rodrigobraz.OrderSystem.domain.dto.CategoryDTO;
+import br.com.rodrigobraz.OrderSystem.domain.dto.CustomerDTO;
+import br.com.rodrigobraz.OrderSystem.repositories.CategoryRepository;
 import br.com.rodrigobraz.OrderSystem.services.CategoryService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,6 +15,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.Optional;
@@ -21,6 +26,9 @@ public class CategoryController {
 
     @Autowired
     private CategoryService service;
+
+    @Autowired
+    private CategoryRepository repository;
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Category>> find(@PathVariable Integer id) {
@@ -56,12 +64,15 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@RequestBody @Valid CategoryDTO dto, @PathVariable Integer id) {
+    @Transactional
+    public ResponseEntity<CategoryDTO> update(@PathVariable Integer id, @RequestBody @Valid CategoryDTO dto) {
 
-        Category category = dto.toModel();
-        service.update(category);
-
-        return ResponseEntity.noContent().build();
+        Optional<Category> possibleCategory = repository.findById(id);
+        if (possibleCategory.isPresent()) {
+            Category category = dto.update(id, repository);
+            return ResponseEntity.ok(new CategoryDTO(category));
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")

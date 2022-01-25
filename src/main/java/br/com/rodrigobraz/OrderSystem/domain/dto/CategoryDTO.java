@@ -1,12 +1,12 @@
 package br.com.rodrigobraz.OrderSystem.domain.dto;
 
 import br.com.rodrigobraz.OrderSystem.domain.Category;
+import br.com.rodrigobraz.OrderSystem.domain.Customer;
+import br.com.rodrigobraz.OrderSystem.repositories.CategoryRepository;
+import br.com.rodrigobraz.OrderSystem.repositories.CustomerRepository;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.domain.Page;
-
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-
 
 public class CategoryDTO {
     
@@ -37,6 +37,13 @@ public class CategoryDTO {
     }
 
     public Category toModel() {
-        return new Category(id, name);
+        return new Category(null, name);
+    }
+
+    public Category update(Integer id, CategoryRepository repository) {
+        Category category = repository.findById(id).get();
+        category.setName(this.name);
+
+        return category;
     }
 }

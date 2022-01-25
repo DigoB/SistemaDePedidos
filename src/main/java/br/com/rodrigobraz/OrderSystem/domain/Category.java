@@ -35,6 +35,10 @@ public class Category {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @ManyToMany(mappedBy = "categories")
     public List<Product> getProducts() {
         return products;

@@ -35,12 +35,11 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(Integer id, String name, String email, String document, CustomerType type) {
-        this.id = id;
+    public Customer(String name, String email, String document, CustomerType type) {
         this.name = name;
         this.email = email;
         this.document = document;
-        this.type = type.getCod();
+        this.type = (type == null) ? null : type.getCod();
     }
 
     public Integer getId() {
@@ -73,6 +72,14 @@ public class Customer {
 
     public List<OrderBuy> getOrders() {
         return orders;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
