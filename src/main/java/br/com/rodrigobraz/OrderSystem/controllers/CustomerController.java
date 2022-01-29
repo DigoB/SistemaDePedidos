@@ -2,6 +2,7 @@ package br.com.rodrigobraz.OrderSystem.controllers;
 
 import br.com.rodrigobraz.OrderSystem.domain.Customer;
 import br.com.rodrigobraz.OrderSystem.domain.dto.CustomerDTO;
+import br.com.rodrigobraz.OrderSystem.domain.dto.CustomerPostDTO;
 import br.com.rodrigobraz.OrderSystem.repositories.CustomerRepository;
 import br.com.rodrigobraz.OrderSystem.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
+
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.Optional;
 
 @RestController
@@ -56,5 +60,16 @@ public class CustomerController {
             return ResponseEntity.ok(new CustomerDTO(customer));
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping
+    public ResponseEntity<CustomerPostDTO> insert(@RequestBody @Valid CustomerPostDTO dto, UriComponentsBuilder uri) {
+
+        Customer customer = dto.toModel();
+        customer = service.insert(customer);
+
+        URI path = uri.path("/customers/{id}").buildAndExpand(customer.getId()).toUri();
+
+        return ResponseEntity.created(path).build();
     }
 }

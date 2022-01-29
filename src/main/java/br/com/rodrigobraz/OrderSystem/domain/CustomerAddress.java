@@ -34,8 +34,7 @@ public class CustomerAddress {
     public CustomerAddress() {
     }
 
-    public CustomerAddress(Integer id, String street, String number, String complement, String district, String zipCode, Customer customer, City city) {
-        this.id = id;
+    public CustomerAddress(String street, String number, String complement, String district, String zipCode, Customer customer, City city) {
         this.street = street;
         this.number = number;
         this.complement = complement;
