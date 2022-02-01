@@ -4,13 +4,22 @@ import br.com.rodrigobraz.OrderSystem.domain.City;
 import br.com.rodrigobraz.OrderSystem.domain.Customer;
 import br.com.rodrigobraz.OrderSystem.domain.CustomerAddress;
 import br.com.rodrigobraz.OrderSystem.domain.enums.CustomerType;
+import br.com.rodrigobraz.OrderSystem.services.validators.ValidDocument;
+import org.hibernate.validator.constraints.Length;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 public class CustomerPostDTO {
 
+    @NotBlank(message = "Must not be blank")
+    @Length(min = 3, max = 100, message = "Must be between 3 and 100 letters")
     private String name;
 
+    @NotBlank(message = "Must not be blank")
+    @Email(message = "Invalid email")
     private String email;
 
+    @ValidDocument
     private String document;
 
     private Integer type;

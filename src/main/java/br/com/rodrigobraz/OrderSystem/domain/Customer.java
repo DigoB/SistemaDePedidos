@@ -21,7 +21,7 @@ public class Customer {
 
     private Integer type;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<CustomerAddress> adresses = new ArrayList<>();
 
     @ElementCollection

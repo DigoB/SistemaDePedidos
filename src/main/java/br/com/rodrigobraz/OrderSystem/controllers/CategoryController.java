@@ -1,12 +1,10 @@
 package br.com.rodrigobraz.OrderSystem.controllers;
 
 import br.com.rodrigobraz.OrderSystem.domain.Category;
-import br.com.rodrigobraz.OrderSystem.domain.Customer;
 import br.com.rodrigobraz.OrderSystem.domain.dto.CategoryDTO;
-import br.com.rodrigobraz.OrderSystem.domain.dto.CustomerDTO;
 import br.com.rodrigobraz.OrderSystem.repositories.CategoryRepository;
 import br.com.rodrigobraz.OrderSystem.services.CategoryService;
-import org.springframework.beans.BeanUtils;
+import br.com.rodrigobraz.OrderSystem.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,6 +32,9 @@ public class CategoryController {
     public ResponseEntity<Optional<Category>> find(@PathVariable Integer id) {
 
         Optional<Category> category = service.search(id);
+        if (category.isEmpty()) {
+            throw new ObjectNotFoundException("Category id does not exist");
+        }
 
         return ResponseEntity.ok().body(category);
     }

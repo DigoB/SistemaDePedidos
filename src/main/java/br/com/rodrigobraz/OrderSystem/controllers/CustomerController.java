@@ -5,6 +5,7 @@ import br.com.rodrigobraz.OrderSystem.domain.dto.CustomerDTO;
 import br.com.rodrigobraz.OrderSystem.domain.dto.CustomerPostDTO;
 import br.com.rodrigobraz.OrderSystem.repositories.CustomerRepository;
 import br.com.rodrigobraz.OrderSystem.services.CustomerService;
+import br.com.rodrigobraz.OrderSystem.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,6 +34,9 @@ public class CustomerController {
     public ResponseEntity<Optional<Customer>> searchById(@PathVariable Integer id) {
 
         Optional<Customer> possibleCustomer = service.search(id);
+        if (possibleCustomer.isEmpty()) {
+            throw new ObjectNotFoundException("Customer id does not exist");
+        }
 
         return ResponseEntity.ok().body(possibleCustomer);
     }
@@ -59,7 +63,7 @@ public class CustomerController {
             Customer customer = dto.update(id, repository);
             return ResponseEntity.ok(new CustomerDTO(customer));
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping
@@ -71,5 +75,13 @@ public class CustomerController {
         URI path = uri.path("/customers/{id}").buildAndExpand(customer.getId()).toUri();
 
         return ResponseEntity.created(path).build();
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+
+        service.delete(id);
+
+        return ResponseEntity.noContent().build();
     }
 }

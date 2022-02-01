@@ -39,7 +39,7 @@ public class CustomerService {
         try {
             repository.deleteById(id);
         } catch (DataIntegrityViolationException e) {
-            throw new DataIntegrityException("Not possible delete a customer that has addresses");
+            throw new DataIntegrityException("Not possible delete a customer that has orders");
         }
     }
 
