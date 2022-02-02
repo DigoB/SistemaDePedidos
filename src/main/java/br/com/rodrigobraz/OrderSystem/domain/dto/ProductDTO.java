@@ -1,9 +1,10 @@
 package br.com.rodrigobraz.OrderSystem.domain.dto;
 
 import br.com.rodrigobraz.OrderSystem.domain.Product;
-import org.springframework.data.domain.Page;
 
 public class ProductDTO {
+
+    private Integer id;
 
     private String name;
 
@@ -13,8 +14,13 @@ public class ProductDTO {
     }
 
     public ProductDTO(Product product) {
+        id = product.getId();
         name = product.getName();
         price = product.getPrice();
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public String getName() {

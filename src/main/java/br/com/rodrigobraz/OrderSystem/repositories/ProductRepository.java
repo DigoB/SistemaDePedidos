@@ -15,7 +15,7 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
-    @Transactional(readOnly = true)
+    @Transactional(readOnly=true)
     @Query("SELECT DISTINCT p FROM Product p INNER JOIN p.categories cat WHERE p.name LIKE %:name% AND cat IN :categories")
     Page<Product> searchList(@Param("name") String name, @Param("categories") List<Category> categories, Pageable pageRequest);
 }
