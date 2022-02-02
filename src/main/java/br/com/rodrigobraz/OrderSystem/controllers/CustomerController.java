@@ -6,15 +6,16 @@ import br.com.rodrigobraz.OrderSystem.domain.dto.CustomerPostDTO;
 import br.com.rodrigobraz.OrderSystem.repositories.CustomerRepository;
 import br.com.rodrigobraz.OrderSystem.services.CustomerService;
 import br.com.rodrigobraz.OrderSystem.services.exceptions.ObjectNotFoundException;
+import br.com.rodrigobraz.OrderSystem.services.validators.DuplicatedEmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
@@ -23,6 +24,14 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/customers")
 public class CustomerController {
+
+    @Autowired
+    private DuplicatedEmailValidator validator;
+
+    @InitBinder
+    public void init(WebDataBinder binder) {
+        binder.addValidators(validator);
+    }
 
     @Autowired
     private CustomerService service;
