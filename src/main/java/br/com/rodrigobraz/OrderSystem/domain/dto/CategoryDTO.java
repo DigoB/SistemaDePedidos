@@ -1,11 +1,10 @@
 package br.com.rodrigobraz.OrderSystem.domain.dto;
 
 import br.com.rodrigobraz.OrderSystem.domain.Category;
-import br.com.rodrigobraz.OrderSystem.domain.Customer;
 import br.com.rodrigobraz.OrderSystem.repositories.CategoryRepository;
-import br.com.rodrigobraz.OrderSystem.repositories.CustomerRepository;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.domain.Page;
+
 import javax.validation.constraints.NotBlank;
 
 public class CategoryDTO {
