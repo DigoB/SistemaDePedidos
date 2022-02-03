@@ -2,11 +2,12 @@ package br.com.rodrigobraz.OrderSystem.domain;
 
 import br.com.rodrigobraz.OrderSystem.domain.enums.PaymentStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
-
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import javax.persistence.Entity;
 import java.util.Date;
 
 @Entity
+@JsonTypeName("ticketPayment")
 public class TicketPayment extends Payment {
 
     @JsonFormat(pattern = "dd/MM/yyyy")
@@ -30,5 +31,9 @@ public class TicketPayment extends Payment {
 
     public Date getPaymentDate() {
         return paymentDate;
+    }
+
+    public void setPaymentDate(Date paymentDate) {
+        this.paymentDate = paymentDate;
     }
 }

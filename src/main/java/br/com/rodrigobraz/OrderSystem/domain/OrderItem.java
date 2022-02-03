@@ -39,8 +39,24 @@ public class OrderItem {
         return id.getOrder();
     }
 
+    public void setOrder(OrderBuy order) {
+        id.setOrder(order);
+    }
+
     public Product getProduct() {
         return id.getProduct();
+    }
+
+    public void setProduct(Product product) {
+        id.setProduct(product);
+    }
+
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     public OrderItemPK getId() {
@@ -57,6 +73,10 @@ public class OrderItem {
 
     public Double getPrice() {
         return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     @Override

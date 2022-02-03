@@ -38,7 +38,7 @@ public class ProductService {
         Pageable pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 
         List<Category> categories = categoryRepository.findAllById(ids);
-        return productRepository.searchList(name, categories, pageRequest);
+        return productRepository.findDistinctByNameContainingAndCategoriesIn(name, categories, pageRequest);
 
     }
 }

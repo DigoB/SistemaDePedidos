@@ -74,6 +74,10 @@ public class OrderBuy {
         this.payment = payment;
     }
 
+    public void setInstant(Date instant) {
+        this.instant = instant;
+    }
+
     public Set<OrderItem> getItems() {
         return items;
     }

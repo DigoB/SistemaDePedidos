@@ -2,12 +2,14 @@ package br.com.rodrigobraz.OrderSystem.domain;
 
 import br.com.rodrigobraz.OrderSystem.domain.enums.PaymentStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "@type")
 public abstract class Payment {
 
     @Id
@@ -26,7 +28,7 @@ public abstract class Payment {
 
     public Payment(Integer id, PaymentStatus status, OrderBuy order) {
         this.id = id;
-        this.status = status.getCod();
+        this.status = (status==null) ? null : status.getCod();
         this.order = order;
     }
 
@@ -40,6 +42,14 @@ public abstract class Payment {
 
     public OrderBuy getOrder() {
         return order;
+    }
+
+    public void setStatus(PaymentStatus status) {
+        this.status = status.getCod();
+    }
+
+    public void setOrder(OrderBuy order) {
+        this.order = order;
     }
 
     @Override
