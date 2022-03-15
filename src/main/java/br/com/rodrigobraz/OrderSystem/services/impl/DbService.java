@@ -1,4 +1,4 @@
-package br.com.rodrigobraz.OrderSystem.services;
+package br.com.rodrigobraz.OrderSystem.services.impl;
 
 import br.com.rodrigobraz.OrderSystem.domain.*;
 import br.com.rodrigobraz.OrderSystem.domain.enums.CustomerType;

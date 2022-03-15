@@ -1,7 +1,7 @@
 package br.com.rodrigobraz.OrderSystem.controllers;
 
 import br.com.rodrigobraz.OrderSystem.domain.OrderBuy;
-import br.com.rodrigobraz.OrderSystem.services.OrderService;
+import br.com.rodrigobraz.OrderSystem.services.impl.OrderServiceImpl;
 import br.com.rodrigobraz.OrderSystem.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,7 @@ import java.util.Optional;
 public class OrderController {
 
     @Autowired
-    private OrderService service;
+    private OrderServiceImpl service;
 
     @GetMapping("{id}")
     public ResponseEntity<Optional<OrderBuy>> find(@PathVariable Integer id) {

@@ -1,12 +1,17 @@
 package br.com.rodrigobraz.OrderSystem.domain.dto;
 
 import br.com.rodrigobraz.OrderSystem.domain.Category;
-import br.com.rodrigobraz.OrderSystem.repositories.CategoryRepository;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.domain.Page;
 
 import javax.validation.constraints.NotBlank;
 
+@AllArgsConstructor
+@Getter
+@Setter
 public class CategoryDTO {
     
     private Integer id;
@@ -23,26 +28,7 @@ public class CategoryDTO {
         name = category.getName();
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
     public static Page<CategoryDTO> convert(Page<Category> categories) {
         return categories.map(CategoryDTO::new);
-    }
-
-    public Category toModel() {
-        return new Category(null, name);
-    }
-
-    public Category update(Integer id, CategoryRepository repository) {
-        Category category = repository.findById(id).get();
-        category.setName(this.name);
-
-        return category;
     }
 }

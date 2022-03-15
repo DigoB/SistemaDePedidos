@@ -1,4 +1,4 @@
-package br.com.rodrigobraz.OrderSystem.services;
+package br.com.rodrigobraz.OrderSystem.services.impl;
 
 import br.com.rodrigobraz.OrderSystem.domain.City;
 import br.com.rodrigobraz.OrderSystem.domain.Customer;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class CustomerService {
+public class CustomerServiceImpl {
 
     @Autowired
     private CustomerRepository repository;

@@ -3,7 +3,7 @@ package br.com.rodrigobraz.OrderSystem.controllers;
 import br.com.rodrigobraz.OrderSystem.controllers.utils.UrlUtils;
 import br.com.rodrigobraz.OrderSystem.domain.Product;
 import br.com.rodrigobraz.OrderSystem.domain.dto.ProductDTO;
-import br.com.rodrigobraz.OrderSystem.services.ProductService;
+import br.com.rodrigobraz.OrderSystem.services.impl.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ import java.util.Optional;
 public class ProductController {
 
     @Autowired
-    private ProductService service;
+    private ProductServiceImpl service;
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductDTO> findById(@PathVariable Integer id) {

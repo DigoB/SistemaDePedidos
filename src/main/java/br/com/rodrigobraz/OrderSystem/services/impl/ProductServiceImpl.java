@@ -1,4 +1,4 @@
-package br.com.rodrigobraz.OrderSystem.services;
+package br.com.rodrigobraz.OrderSystem.services.impl;
 
 import br.com.rodrigobraz.OrderSystem.domain.Category;
 import br.com.rodrigobraz.OrderSystem.domain.Product;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProductService {
+public class ProductServiceImpl {
 
     @Autowired
     private ProductRepository productRepository;

@@ -1,6 +1,6 @@
 package br.com.rodrigobraz.OrderSystem.config;
 
-import br.com.rodrigobraz.OrderSystem.services.DbService;
+import br.com.rodrigobraz.OrderSystem.services.impl.DbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package br.com.rodrigobraz.OrderSystem.services;
+package br.com.rodrigobraz.OrderSystem.services.impl;
 
 import br.com.rodrigobraz.OrderSystem.domain.Category;
 import br.com.rodrigobraz.OrderSystem.domain.OrderBuy;
@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.Optional;
 
 @Service
-public class OrderService {
+public class OrderServiceImpl {
 
     @Autowired
     private OrderRepository repository;
@@ -29,10 +29,10 @@ public class OrderService {
     private OrderItemRepository itemRepository;
 
     @Autowired
-    TicketPaymentService ticketService;
+    TicketPaymentServiceImpl ticketService;
 
     @Autowired
-    private ProductService productService;
+    private ProductServiceImpl productService;
 
     public Optional<OrderBuy> search(Integer id) {
 

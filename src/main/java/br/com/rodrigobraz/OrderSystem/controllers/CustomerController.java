@@ -4,7 +4,7 @@ import br.com.rodrigobraz.OrderSystem.domain.Customer;
 import br.com.rodrigobraz.OrderSystem.domain.dto.CustomerDTO;
 import br.com.rodrigobraz.OrderSystem.domain.dto.CustomerPostDTO;
 import br.com.rodrigobraz.OrderSystem.repositories.CustomerRepository;
-import br.com.rodrigobraz.OrderSystem.services.CustomerService;
+import br.com.rodrigobraz.OrderSystem.services.impl.CustomerServiceImpl;
 import br.com.rodrigobraz.OrderSystem.services.exceptions.ObjectNotFoundException;
 import br.com.rodrigobraz.OrderSystem.services.validators.DuplicatedEmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class CustomerController {
     }
 
     @Autowired
-    private CustomerService service;
+    private CustomerServiceImpl service;
 
     @Autowired
     private CustomerRepository repository;

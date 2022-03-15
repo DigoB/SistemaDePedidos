@@ -1,10 +1,13 @@
 package br.com.rodrigobraz.OrderSystem.domain;
 
+import lombok.AllArgsConstructor;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@AllArgsConstructor
 @Entity
 public class Category {
 
