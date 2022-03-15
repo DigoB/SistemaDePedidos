@@ -12,9 +12,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.net.URI;
 
 @RestController
 @RequestMapping("/categories")
@@ -49,9 +51,11 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> insert(@RequestBody @Valid CategoryDTO dto, UriComponentsBuilder uriBuilder) {
-        return ResponseEntity.created(uriBuilder.path("/categories/{id}")
-                .buildAndExpand(service.insert(dto).getId()).toUri()).build();
+    public ResponseEntity<CategoryDTO> insert(@RequestBody @Valid CategoryDTO dto) {
+
+        URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequest().path("/{id]").buildAndExpand(service.insert(dto).getId()).toUri();
+        return ResponseEntity.created(uri).build();
     }
 
     @PutMapping("/{id}")
@@ -61,7 +65,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Integer id) {
+    public ResponseEntity<CategoryDTO> delete(@PathVariable Integer id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
