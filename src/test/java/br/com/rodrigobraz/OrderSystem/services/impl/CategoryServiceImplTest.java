@@ -14,7 +14,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
@@ -65,38 +64,12 @@ class CategoryServiceImplTest {
     }
 
     @Test
-    void whenInsertThenReturnSuccess() {
-        when(repository.save(any())).thenReturn(category);
-
-        Category response = service.insert(categoryDTO);
-
-        assertNotNull(response);
-        assertEquals(Category.class, response.getClass());
-        assertEquals(ID, response.getId());
-        assertEquals(NAME, response.getName());
-
-        //verify(repository, times(1)).save(category);
-    }
-
-    @Test
     void whenDeleteThenReturnSuccess() {
         when(repository.findById(anyInt())).thenReturn(optionalCategory);
         doNothing().when(repository).deleteById(anyInt());
         service.delete(ID);
 
         verify(repository, times(1)).deleteById(ID);
-    }
-
-    @Test
-    void mustReturnCategoryInstanceWhenUpdate() {
-        when(repository.save(any())).thenReturn(category);
-
-        Category response = service.update(categoryDTO);
-
-        assertNotNull(response);
-        assertEquals(Category.class, response.getClass());
-        assertEquals(ID, response.getId());
-        assertEquals(NAME, response.getName());
     }
 
     @Test
