@@ -32,7 +32,7 @@ public class CategoryController {
     private ModelMapper mapper;
 
     @GetMapping("/{id}")
-    public ResponseEntity<CategoryDTO> find(@PathVariable Integer id) {
+    public ResponseEntity<CategoryDTO> findById(@PathVariable Integer id) {
         return ResponseEntity.ok().body(mapper.map(service.findById(id), CategoryDTO.class));
     }
 

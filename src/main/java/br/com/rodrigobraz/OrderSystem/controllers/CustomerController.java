@@ -7,6 +7,7 @@ import br.com.rodrigobraz.OrderSystem.repositories.CustomerRepository;
 import br.com.rodrigobraz.OrderSystem.services.impl.CustomerServiceImpl;
 import br.com.rodrigobraz.OrderSystem.services.exceptions.ObjectNotFoundException;
 import br.com.rodrigobraz.OrderSystem.services.validators.DuplicatedEmailValidator;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +16,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -39,15 +41,13 @@ public class CustomerController {
     @Autowired
     private CustomerRepository repository;
 
+    @Autowired
+    private ModelMapper mapper;
+
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Customer>> searchById(@PathVariable Integer id) {
+    public ResponseEntity<CustomerDTO> findById(@PathVariable Integer id) {
+        return ResponseEntity.ok().body(mapper.map(findById(id), CustomerDTO.class));
 
-        Optional<Customer> possibleCustomer = service.search(id);
-        if (possibleCustomer.isEmpty()) {
-            throw new ObjectNotFoundException("Customer id does not exist");
-        }
-
-        return ResponseEntity.ok().body(possibleCustomer);
     }
 
     @GetMapping
@@ -66,31 +66,21 @@ public class CustomerController {
     @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<CustomerDTO> update(@PathVariable Integer id, @RequestBody @Valid CustomerDTO dto) {
-
-        Optional<Customer> possibleCustomer = repository.findById(id);
-        if (possibleCustomer.isPresent()) {
-            Customer customer = dto.update(id, repository);
-            return ResponseEntity.ok(new CustomerDTO(customer));
-        }
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().body(mapper.map(service.update(dto), CustomerDTO.class));
     }
 
     @PostMapping
-    public ResponseEntity<CustomerPostDTO> insert(@RequestBody @Valid CustomerPostDTO dto, UriComponentsBuilder uri) {
-
+    public ResponseEntity<CustomerPostDTO> insert(@RequestBody @Valid CustomerPostDTO dto) {
         Customer customer = dto.toModel();
-        customer = service.insert(customer);
+        URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequest().path("/{id]").buildAndExpand(service.insert(customer).getId()).toUri();
 
-        URI path = uri.path("/customers/{id}").buildAndExpand(customer.getId()).toUri();
-
-        return ResponseEntity.created(path).build();
+        return ResponseEntity.created(uri).build();
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
-
         service.delete(id);
-
         return ResponseEntity.noContent().build();
     }
 }

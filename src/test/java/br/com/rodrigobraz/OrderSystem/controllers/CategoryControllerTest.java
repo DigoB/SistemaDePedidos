@@ -10,11 +10,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
@@ -49,7 +46,7 @@ class CategoryControllerTest {
         when(service.findById(anyInt())).thenReturn(category);
         when(mapper.map(any(), any())).thenReturn(categoryDTO);
 
-        ResponseEntity<CategoryDTO> response = controller.find(ID);
+        ResponseEntity<CategoryDTO> response = controller.findById(ID);
         assertNotNull(response);
         assertNotNull(response.getBody());
         assertEquals(ResponseEntity.class, response.getClass());
